@@ -42,7 +42,7 @@ int isolate_digit(unsigned long num, size_t digit_index) {
 	return (num % hi_div) / lo_div;
 }
 
-char* lu_to_str(unsigned long num, size_t digits) {
+char* ltoa(unsigned long num, size_t digits) {
 	int result;
 	char* buf;
 
@@ -121,7 +121,7 @@ void check_palindromes_with_factors_between(unsigned long from, unsigned long to
 		for (y = to; y >= x; y--) {
 			num = x * y;
 			/*if (num > largest_palindrome && is_palindrome_math(num)) {*/
-			if (num > largest_palindrome && is_palindrome_char(lu_to_str(num, 100), num_digits(num))) {
+			if (num > largest_palindrome && is_palindrome_char(ltoa(num, 100), num_digits(num))) {
 				largest_palindrome = num;
 				chosen_x = x;
 				chosen_y = y;

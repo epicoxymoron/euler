@@ -52,7 +52,7 @@ int isolate_digit(unsigned long num, size_t digit_index);
  * 		the size of the character buffer
  * @returns a char* describing the number
  */
-char* lu_to_str(unsigned long num, size_t digits);
+char* ltoa(unsigned long num, size_t digits);
 
 /*
  * Determines whether the argument is a palindrome using mathematical
