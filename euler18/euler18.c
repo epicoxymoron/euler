@@ -42,8 +42,6 @@ size(rows) = row_start(rows+1) - 1
 row(index) = ???
 pos(index) = index - row_start(row(index))
 
-*/
-
                             75
                           95  64
                         17  47  82
@@ -66,6 +64,10 @@ pos(index) = index - row_start(row(index))
  * this is the structure we'll be mimicking with 3 arrays
  */
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 #include <assert.h>
 
 struct triangle_node {
@@ -77,15 +79,36 @@ struct triangle_node {
 	int						largest_subtree_value;
 };
 
-size_t left_childe
+
+unsigned long sum_from_1_to(unsigned long n) {
+	return (n * (n+1)) / 2;
+}
+
+bool is_valid_size(unsigned int elements) {
+	int sq = floor(sqrt(elements * 2));
+	return (sum_from_1_to(sq) == elements);
+}
+
+unsigned long row_start(unsigned int row_num) {
+	return sum_from_1_to(row_num);
+}
 
 struct trinagle_node* build_triangle(int values[], size_t length) {
-	struct triangle_node* root[] = (struct triangle_node**) malloc(sizeof(struct triange_node*) * length);
-	for
+	struct triangle_node** root = (struct triangle_node**) malloc(sizeof(struct triange_node*) * length);
+	for (;;) {
+		;
+	}
 
 }
 
 int main(int argc, char** argv) {
+	int i;
+	for (i = 0; i < 1000; ++i) {
+		if (is_valid_size(i)) {
+			printf("%d\n", i);
+		}
+	}
+
 	int arr[] = {75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 4, 82, 47, 65, 
 		19, 1, 23, 75, 3, 34, 88, 2, 77, 73, 7, 63, 67, 99, 65, 4, 28, 6, 
 		16, 70, 92, 41, 41, 26, 56, 83, 40, 80, 70, 33, 41, 48, 72, 33, 47, 
