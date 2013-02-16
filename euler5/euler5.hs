@@ -16,9 +16,23 @@ divByAll :: [Int] -> Int -> Bool
 divByAll [] _ = True
 divByAll xs n = all (\x -> (mod n x) == 0) xs
 
-isFactor :: Int -> Int -> Bool
-isFactor x y = and [(x > y), (mod x y == 0)]
---filterFactors xs n = filter (\y -> (y == n) or ((mod n y) > 0)) xs
+-- Gets rid of sub-divisors in an ordered list, returning an ordered list
+-- of items which are not divisible by any other items in the list.
+-- 
+-- Examples:
+-- filterFactors [1,2,3,6,9,18] --> [18]
+-- because each of the other elements in the list is divisible by 18
+-- filterFactors [7,9,18] --> [7,18]
+-- because only 9 is divisible by 18- 7 doesn't go evenly into anything else
+-- filterFactors [1,2,3,4,5] --> [3,4,5]
+-- filterFactors [1,5,10,15,20] --> [20]
+filterFactors :: [Int] -> [Int]
+filterFactors xs = reverse $ filterFactors' $ reverse xs
+
+-- the real workhorse
+filterFactors' :: [Int] -> [Int]
+filterFactors' [] = []
+filterFactors' (x:xs) = x : filterFactors' (filter (\y -> x `mod` y > 0) xs)
 
 -- Finds the smallest number divisible by [1..n]
 -- 
@@ -31,13 +45,11 @@ isFactor x y = and [(x > y), (mod x y == 0)]
 -- O(x) of the function, but it'll still do less work.
 --
 -- We can also look at removing factors from the list such that we're only 
--- looking for co-prime numbers.  For example, if we're looking for a number
--- divided by [1..6], we can simplify that to looking for factors from 
--- [4,5,6], since [1..3] all divide 6.  Again, doesn't change the O(x) of the 
--- function, but still does less actual work.  This optimization isn't 
--- implemented yet, but that's what the stub for isFactor is meant for.
--- 
-euler5' n = head $ filter (divByAll [2 .. n-1]) [n, 2*n ..] 
+-- looking for numbers that don't evenly divide each other.  For example, 
+-- if we're looking for a number divided by [1..6], we can simplify that to 
+-- looking for factors from [4,5,6], since [1..3] all divide 6.  Again, 
+-- doesn't change the O(x) of the function, but still does less actual work.
+euler5' n = head $ filter (divByAll (init (filterFactors [2 .. n]))) [n, 2*n ..] 
 
 -- the magic
 euler5 = euler5' 20
