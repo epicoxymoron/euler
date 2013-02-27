@@ -72,3 +72,8 @@ And, since the problem is to calculate the values for the 5th power, this
 actually runs the problem
 
 > euler30 = euler30' 5
+
+Tests the example case:
+
+> testExampleList = (findMatchingSums 4) == [1634, 8208, 9474]
+> testExampleSum = (sum $ findMatchingSums 4) == 19316
